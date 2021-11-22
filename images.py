@@ -7,6 +7,7 @@ def picture_tow_valued(image):
     # 计算图片离散度
     discretization=image_np.mean()-image_np.std()
     discretization=int(discretization)
+    discretization=120
     # 循环图片上每一个点
     for i in range(image_np.shape[0]):
         for j in range(image_np.shape[1]):
@@ -40,7 +41,7 @@ def cut_picture_rank(image):
             image1.append(image[:,i])
         else:
             # 检测到数字的末尾
-            if any(image[:,i-1]):
+            if any(image[:,i-1]) and len(image1)>8:
                 image0.append(image1)
                 image1=[]
     # list转numpy类型
@@ -59,7 +60,7 @@ def cut_picture_row(image):
                 image1.append(z[i,:])
             else:
                 # 检测到数字的末尾 并且高度要大于8 筛选出去一些躁点
-                if any(z[i-1,:]) and len(image1)>8 :
+                if any(z[i-1,:]) and len(image1)>8:
                     image0.append(image1)
                     image1=[]
     for i,j in enumerate(image0):
@@ -68,6 +69,7 @@ def cut_picture_row(image):
 
 def save_picture(image):
     j=0
+    print(np.shape(image))
     for i in image:
         plt.imsave("./image/%s.png" % (str(j)), i, cmap='gray')
         i=Image.open("./image/%s.png" % (str(j)))
@@ -78,23 +80,28 @@ def save_picture(image):
 def make_picture_square(image):
     n=np.shape(image)
     print(n[0])
+    list=[]
     for i in range(n[0]):
         shape=np.shape(image[i])
         print(shape)
-        if shape[0]>shape[1]:
-            add_h = int((shape[0]-shape[1])/2)+64
-            add_h_np = np.zeros((shape[0],add_h),dtype=int)
-            add_v_np = np.zeros((64,shape[1]+2*add_h),dtype=int)
-            image[i] = np.hstack((add_h_np,image[i],add_h_np))
-            image[i] = np.vstack((add_v_np,image[i],add_v_np))
-        elif shape[1]>shape[0]:
-            add_v = int((shape[1]-shape[0])/2)+64
-            add_v_np = np.zeros((add_v,shape[1]),dtype=int)
-            add_h_np = np.zeros((shape[0]+2*add_v,64),dtype=int)
-            image[i] = np.vstack((add_v_np,image[i],add_v_np))
-            image[i] = np.hstack((add_h_np,image[i],add_h_np))
+        if image[i].ndim == 2 and shape[1]>10 and shape[0]>10:
+            if shape[0]>shape[1]:
+                add_h = int((shape[0]-shape[1])/2)+64
+                add_h_np = np.zeros((shape[0],add_h),dtype=int)
+                add_v_np = np.zeros((64,shape[1]+2*add_h),dtype=int)
+                image[i] = np.hstack((add_h_np,image[i],add_h_np))
+                image[i] = np.vstack((add_v_np,image[i],add_v_np))
+            elif shape[1]>shape[0]:
+                add_v = int((shape[1]-shape[0])/2)+64
+                add_v_np = np.zeros((add_v,shape[1]),dtype=int)
+                add_h_np = np.zeros((shape[0]+2*add_v,64),dtype=int)
+                image[i] = np.vstack((add_v_np,image[i],add_v_np))
+                image[i] = np.hstack((add_h_np,image[i],add_h_np))
+            else:
+                continue
         else:
-            continue
+            list.append(i)
+    image = np.delete(image, list, axis=0)
     return image
 
 
@@ -107,3 +114,6 @@ def images_processing(image_name='test.png'):
     image_row = cut_picture_row(image_rank)
     image_square = make_picture_square(image_row)
     save_picture(image_square)
+
+if __name__ == '__main__':
+    images_processing('input17.png')
