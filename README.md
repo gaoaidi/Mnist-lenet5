@@ -2,25 +2,23 @@
 
 ## 实验介绍
 
-LeNet5 + MNIST被誉为深度学习领域的“Hello world”。本实验主要介绍使用MindSpore在MNIST手写数字数据集上开发和训练一个LeNet5模型，并验证模型精度。
+LeNet5 + MNIST被誉为深度学习领域的“Hello world”。本实验主要介绍使用MindSpore在MNIST手写数字数据集上开发和训练一个LeNet5模型，并对自己手写的数字进行图像处理、模型预测。
 
 ## 实验目的
 
 - 了解如何使用MindSpore进行简单卷积神经网络的开发。
 - 了解如何使用MindSpore进行简单图片分类任务的训练。
-- 了解如何使用MindSpore进行简单图片分类任务的验证。
+- 了解如何使用MindSpore进行简单图片分类任务的预测。
 
 ## 预备知识
 
 - 熟练使用Python，了解Shell及Linux操作系统基本知识。
 - 具备一定的深度学习理论知识，如卷积神经网络、损失函数、优化器，训练策略等。
-- 了解华为云的基本使用方法，包括[OBS（对象存储）](https://www.huaweicloud.com/product/obs.html)、[ModelArts（AI开发平台）](https://www.huaweicloud.com/product/modelarts.html)、[Notebook（开发工具）](https://support.huaweicloud.com/engineers-modelarts/modelarts_23_0032.html)、[训练作业](https://support.huaweicloud.com/engineers-modelarts/modelarts_23_0238.html)等服务。华为云官网：https://www.huaweicloud.com
 - 了解并熟悉MindSpore AI计算框架，MindSpore官网：https://www.mindspore.cn
 
 ## 实验环境
 
-- MindSpore 1.0.0（MindSpore版本会定期更新，本指导也会定期刷新，与版本配套）；
-- 华为云ModelArts（控制台左上角选择“华北-北京四”）：ModelArts是华为云提供的面向开发者的一站式AI开发平台，集成了昇腾AI处理器资源池，用户可以在该平台下体验MindSpore；
+- MindSpore 1.5.0（MindSpore版本会定期更新，本指导也会定期刷新，与版本配套）；
 - Windows/Ubuntu x64笔记本，NVIDIA GPU服务器，或Atlas Ascend服务器等。
 
 ## 实验准备
