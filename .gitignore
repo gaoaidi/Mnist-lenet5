@@ -1,7 +1,7 @@
-input/*
-image/*
-ckpt/*
-ckpt-v1/*
-rank_0/*
-test.png
-__pycache__/*
+image/
+ckpt/
+ckpt-v1/
+rank_0/
+*.png
+.DS_Store
+__pycache__/
